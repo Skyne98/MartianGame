@@ -4,77 +4,121 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace MartianGame.Scripts
+public class MouseKeyboardInput : MonoBehaviour, IInput
 {
-    public class MouseKeyboardInput : MonoBehaviour, IInput
+    Action<ArmDownGestureArgs> _downGesture;
+    Action<ArmGrabbedGestureArgs> _grabbedGesture;
+    Action<ArmReleasedGestureArgs> _releasedGesture;
+    Action<ScaleGestureArgs> _scaleGesture;
+
+    bool grabbed = false;
+
+    void Update()
     {
-        public Action<ArmDownGestureArgs> OnArmDownGesture
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            OnScaleGesture(new ScaleGestureArgs(Input.mousePosition.y / Screen.height));
         }
 
-        public Action<ArmGrabbedGestureArgs> OnArmGrabbedGesture
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            OnArmDownGesture(new ArmDownGestureArgs(Arm.Left));
         }
 
-        public Action<ArmReleasedGestureArgs> OnArmReleasedGesture
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.E))
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            OnArmDownGesture(new ArmDownGestureArgs(Arm.Right));
         }
 
-        public Action<ScaleGestureArgs> OnScaleGesture
+        if (Input.GetMouseButtonDown(0))
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            OnArmGrabbedGesture(new ArmGrabbedGestureArgs(Arm.Left, GetArmPosition(Arm.Left)));
+            grabbed = true;
+        }
+        if (Input.GetMouseButtonUp(0) && grabbed)
+        {
+            OnArmReleasedGesture(new ArmReleasedGestureArgs(Arm.Left, GetArmPosition(Arm.Left)));
+            grabbed = false;
         }
 
-        public Vector2 GetArmPosition(Arm arm)
+        if (Input.GetMouseButtonDown(1))
         {
-            return Input.mousePosition;
+            OnArmGrabbedGesture(new ArmGrabbedGestureArgs(Arm.Right, GetArmPosition(Arm.Right)));
+            grabbed = true;
+        }
+        if (Input.GetMouseButtonUp(1) && grabbed)
+        {
+            OnArmReleasedGesture(new ArmReleasedGestureArgs(Arm.Right, GetArmPosition(Arm.Right)));
+            grabbed = false;
+        }
+    }
+
+    public Action<ArmDownGestureArgs> OnArmDownGesture
+    {
+        get
+        {
+            return _downGesture;
         }
 
-        public bool GetArmPressed(Arm arm)
+        set
         {
-            if (arm == Arm.Left)
-            {
-                return Input.GetMouseButton(0);
-            }
-            else
-            {
-                return Input.GetMouseButton(1);
-            }
+            _downGesture = value;
+        }
+    }
+
+    public Action<ArmGrabbedGestureArgs> OnArmGrabbedGesture
+    {
+        get
+        {
+            return _grabbedGesture;
+        }
+
+        set
+        {
+            _grabbedGesture = value;
+        }
+    }
+
+    public Action<ArmReleasedGestureArgs> OnArmReleasedGesture
+    {
+        get
+        {
+            return _releasedGesture;
+        }
+
+        set
+        {
+            _releasedGesture = value;
+        }
+    }
+
+    public Action<ScaleGestureArgs> OnScaleGesture
+    {
+        get
+        {
+            return _scaleGesture;
+        }
+
+        set
+        {
+            _scaleGesture = value;
+        }
+    }
+
+    public Vector2 GetArmPosition(Arm arm)
+    {
+        return Input.mousePosition;
+    }
+
+    public bool GetArmPressed(Arm arm)
+    {
+        if (arm == Arm.Left)
+        {
+            return Input.GetMouseButton(0);
+        }
+        else
+        {
+            return Input.GetMouseButton(1);
         }
     }
 }
