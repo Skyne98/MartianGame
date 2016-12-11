@@ -1,0 +1,8 @@
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\bin\Debug\MartianGameLevelEditor.exe.config
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\bin\Debug\MartianGameLevelEditor.exe
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\bin\Debug\MartianGameLevelEditor.pdb
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\obj\Debug\MartianGameLevelEditor.csprojResolveAssemblyReference.cache
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\obj\Debug\MartianGameLevelEditor.exe
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\obj\Debug\MartianGameLevelEditor.pdb
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Alexsey\Documents\GitHub\MartianGame\MartianGameLevelEditor\bin\Debug\Newtonsoft.Json.xml
